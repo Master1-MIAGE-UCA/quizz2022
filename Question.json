@@ -1,0 +1,124 @@
+{
+    "Themes": {
+        "CultureGenerale":{
+            "Questions": [
+              {
+                "numero": 1,
+                "question": "Quel est le nom scientifique du papillon ?",
+                "proposition": [
+                    "Apis",
+                    "Coleoptera",
+                    "Formicidae",
+                    "Lepidoptera"
+                ],
+                "indexreponse": 3 
+              },
+              {
+                "numero": 2,
+                "question": "Quelle est la température de la surface du soleil ?",
+                "proposition": [
+                    "1,233 K",
+                    "5,778 K",
+                    "12,130 K",
+                    "101,300 K"
+                ],
+                "indexreponse": 1 
+              },
+              {
+                "numero": 3,
+                "question": "Quelle est la capitale de la l'Espagne ?",
+                "proposition": [
+                    "Barcelone",
+                    "Madrid",
+                    "Algesiras",
+                    "Murcie"
+                ],
+                "indexreponse": 1 
+              },
+              {
+                "numero": 4,
+                "question": "Quand est né Mahatma Gandhi ?",
+                "proposition": [
+                    "2 Octobre 1869",
+                    "15 Decembre 1872",
+                    "18 Juillet 1918",
+                    "15 Janvier 1929"
+                ],
+                "indexreponse": 1 
+              },
+              {
+                "numero": 5,
+                "question": "À quelle distance de la Terre se trouve la lune ?",
+                "proposition": [
+                    "12 742 km",
+                    "539 822 km",
+                    "384 400 km",
+                    "613 842 km"
+                ],
+                "indexreponse": 2
+              },
+              {
+                "numero": 6,
+                "question": "La seconde guerre mondiale a débuté avec l'invasion de : ",
+                "proposition": [
+                    "La Pologne",
+                    "La Norvège",
+                    "La Belgique",
+                    "La Yougoslavie"
+                ],
+                "indexreponse": 0
+              },
+              {
+                "numero": 7,
+                "question": "Quelle est la taille du Mont Everest ?",
+                "proposition": [
+                    "2 037 m",
+                    "2 413 m",
+                    "5 895 m",
+                    "8 847 m"
+                ],
+                "indexreponse": 3
+              },
+              {
+                "numero": 8,
+                "question": "Qui ne fait pas partie des Avengers ?",
+                "proposition": [
+                    "Bruce Banner",
+                    "Tony Stark",
+                    "John Snow",
+                    "Steve Rogers"
+                ],
+                "indexreponse": 2
+              },
+              {
+                "numero": 9,
+                "question": "Quel manga n'est pas dans le top 10 des ventes de tous les temps ?",
+                "proposition": [
+                    "Bleach",
+                    "Kimetsu no Yaiba",
+                    "Détective Conan",
+                    "One piece"
+                ],
+                "indexreponse": 0
+              },
+              {
+                "numero": 10,
+                "question": " 8+5x2-2x3+1",
+                "proposition": [
+                    "31",
+                    "13",
+                    "10",
+                    "11"
+                ],
+                "indexreponse": 1
+              }
+          ]
+        },
+        "Sport":{
+
+        },
+        "Entreprise":{
+
+        }
+    }
+}

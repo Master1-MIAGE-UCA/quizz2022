@@ -1,0 +1,337 @@
+// Colors
+
+$green: rgb(30, 215, 96);
+$light-black: rgb(40, 40, 40);
+$black: rgb(24, 24, 24);
+$grey: rgb(170, 170, 170);
+$sand: rgb(200, 200, 200);
+$white: rgb(255, 255, 255);
+$blue: #4688d7;
+
+// Spacing
+
+$padding-xs: 5px;
+$padding-sm: 10px;
+$padding: 15px;
+$padding-lg: 30px;
+$padding-xl: 60px;
+
+$margin-xs: 5px;
+$margin-sm: 10px;
+$margin: 15px;
+$margin-lg: 30px;
+$margin-xl: 60px;
+
+// Borders
+
+$border-radius: 15px;
+
+// Font-sizes
+
+$x-small: 11px;
+$small: 14px;
+$medium: 16px;
+$large: 20px;
+$x-large: 24px;
+$xx-large: 36px;
+$xxx-large: 52px;
+
+$fg: /*#E07C24;*/ #a77b06;
+$border-width: 0.3vw;
+$corner-size: 1vw;
+$dur: 0.5s;
+
+* {
+  box-sizing: border-box;
+}
+
+.group {
+  display: none;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 10vh;
+  background-image: url("../assets/brut.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(56, 60, 193, 0.33);
+}
+
+.box-button {
+  padding: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  // background-color: #383CC1;
+  flex-grow: 0.25;
+}
+
+.column {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 1vw 1vw;
+}
+
+.box-param {
+  display: flex;
+}
+
+.trans {
+  transition: all 0.2s ease-out;
+}
+
+.transform-active {
+  flex-grow: 0.9;
+}
+
+#chat {
+  display: none;
+  // background-color: #FF6263;
+  justify-content: normal;
+  align-items: normal;
+  // flex-grow: 2;
+}
+
+#list {
+  display: none;
+  //  background-color: #35BDD0;
+  justify-content: normal;
+  align-items: normal;
+  flex-grow: 1;
+  margin: 1vw 1vw;
+  padding: 1vw;
+  color: #fff;
+}
+
+.start {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+/* button */
+
+.game-button {
+  width: 90%;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+  display: block;
+  text-decoration: none !important;
+  outline: none !important;
+  font-family: "Carter One", sans-serif;
+  font-size: 1vw;
+  line-height: 1.5em;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px 1px #0066a2, -2px 2px 1px #0066a2, 2px -2px 1px #0066a2,
+    -2px -2px 1px #0066a2, 0px 2px 1px #0066a2, 0px -2px 1px #0066a2,
+    0px 4px 1px #004a87, 2px 4px 1px #004a87, -2px 4px 1px #004a87;
+  border: none;
+  margin: 5px 15px 25px;
+  background: repeating-linear-gradient(
+    45deg,
+    #3ebbf7,
+    #3ebbf7 5px,
+    #45b1f4 5px,
+    #45b1f4 10px
+  );
+  border-bottom: 3px solid rgba(16, 91, 146, 0.5);
+  border-top: 3px solid rgba(255, 255, 255, 0.3);
+  color: #fff !important;
+  border-radius: 8px;
+  padding: 6px 13px 8px;
+  box-shadow: 0 6px 0 #266b91, 0 8px 1px 1px rgba(0, 0, 0, 0.3),
+    0 10px 0 5px #12517d, 0 12px 0 5px #1a6b9a, 0 15px 0 5px #0c405e,
+    0 15px 1px 6px rgba(0, 0, 0, 0.3);
+}
+.game-button:hover {
+  top: 2px;
+  box-shadow: 0 4px 0 #266b91, 0 6px 1px 1px rgba(0, 0, 0, 0.3),
+    0 8px 0 5px #12517d, 0 10px 0 5px #1a6b9a, 0 13px 0 5px #0c405e,
+    0 13px 1px 6px rgba(0, 0, 0, 0.3);
+}
+.game-button::before {
+  content: "";
+  height: 10%;
+  position: absolute;
+  width: 40%;
+  background: #fff;
+  right: 13%;
+  top: -3%;
+  border-radius: 99px;
+}
+.game-button::after {
+  content: "";
+  height: 10%;
+  position: absolute;
+  width: 5%;
+  background: #fff;
+  right: 5%;
+  top: -3%;
+  border-radius: 99px;
+}
+.game-button.orange {
+  background: repeating-linear-gradient(
+    45deg,
+    #ffc800,
+    #ffc800 5px,
+    #ffc200 5px,
+    #ffc200 10px
+  );
+  box-shadow: 0 6px 0 #b76113, 0 8px 1px 1px rgba(0, 0, 0, 0.3),
+    0 10px 0 5px #75421f, 0 12px 0 5px #8a542b, 0 15px 0 5px #593116,
+    0 15px 1px 6px rgba(0, 0, 0, 0.3);
+  border-bottom: 3px solid rgba(205, 102, 0, 0.5);
+  text-shadow: 2px 2px 1px #e78700, -2px 2px 1px #e78700, 2px -2px 1px #e78700,
+    -2px -2px 1px #e78700, 0px 2px 1px #e78700, 0px -2px 1px #e78700,
+    0px 4px 1px #c96100, 2px 4px 1px #c96100, -2px 4px 1px #c96100;
+}
+.game-button.orange:hover {
+  top: 2px;
+  box-shadow: 0 4px 0 #b76113, 0 6px 1px 1px rgba(0, 0, 0, 0.3),
+    0 8px 0 5px #75421f, 0 10px 0 5px #8a542b, 0 13px 0 5px #593116,
+    0 13px 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* user list */
+
+.liste-joueur,
+.tableau-score {
+  & {
+    display: flex;
+    flex-flow: column wrap;
+    background-color: grey;
+  }
+
+  .le-joueur {
+    & {
+      background: $light-black;
+      padding: $padding-xs;
+      margin-bottom: 2px;
+      display: flex;
+      padding: 2vh 2vh;
+    }
+
+    &:hover {
+      background: lighten($light-black, 6%);
+      text-decoration: none;
+    }
+
+    &__img {
+      img {
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+      }
+    }
+
+    &__name {
+      margin-left: $margin;
+      color: $white;
+    }
+  }
+}
+
+.section-title {
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 1.25px;
+  font-size: $small * 1.2;
+  margin-bottom: $margin-sm;
+  background-color: #e07c24;
+  text-align: center;
+  border: 0.3vw solid transparent;
+  border-top-left-radius: 0.3vw;
+  border-top-right-radius: 0.3vw;
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.corner-button {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0.02rem;
+  cursor: pointer;
+  background: none;
+  background-image: url("../assets/brut.png");
+  padding: 1vh 1vw;
+  font-size: 2vw;
+  color: #fff;
+  text-shadow: 0 0 20px $fg;
+  position: relative;
+  margin: 1vh;
+  box-sizing: content-box;
+  border: $border-width solid transparent;
+  width: 90%;
+  // filter: brightness(150%);
+
+  &::before,
+  &::after,
+  span::before,
+  span::after {
+    display: block;
+    content: "";
+    width: $corner-size;
+    height: $corner-size;
+    position: absolute;
+  }
+
+  &::before {
+    top: -$border-width;
+    left: -$border-width;
+    border-top: $border-width solid #fff;
+    border-left: $border-width solid #fff;
+    transition: $dur all;
+  }
+  &::after {
+    top: -$border-width;
+    right: -$border-width;
+    border-top: $border-width solid #fff;
+    border-right: $border-width solid #fff;
+    transition: $dur all;
+  }
+  span::before {
+    bottom: -$border-width;
+    left: -$border-width;
+    border-bottom: $border-width solid #fff;
+    border-left: $border-width solid #fff;
+    transition: $dur all;
+  }
+  span::after {
+    bottom: -$border-width;
+    right: -$border-width;
+    border-bottom: $border-width solid #fff;
+    border-right: $border-width solid #fff;
+    transition: $dur all;
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px $fg;
+  }
+
+  &:hover::before,
+  &:hover::after {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover span::before,
+  &:hover span::after {
+    width: 100%;
+    height: 100%;
+  }
+}
