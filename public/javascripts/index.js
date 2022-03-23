@@ -26,6 +26,11 @@ window.onload = () => {
       socket.emit(Messages.username, null);
     }, false);
 
+    document.getElementById('logo')
+    .addEventListener('click', function () {
+      document.getElementById('home').hidden = false;
+    }, false);
+
   /**
    * Add event to the "quick game" button
    */
@@ -49,4 +54,8 @@ window.onload = () => {
     .addEventListener('click', function () {
       socket.emit(Messages.beginQuizz, { state: true });
     });
+
+    
+  
+    
 };
