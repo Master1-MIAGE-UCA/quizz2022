@@ -129,6 +129,7 @@ class Game {
    */
   checkPlayerAnswer(id, socketid) {
     const name = this.findPlayerBySocket(socketid);
+    let score = null;
     console.log(`Server> the response ID sent by the client for verification : ${id}`);
     this.quizData.forEach(element => {
       if (element.question === this.question.question) {
@@ -139,12 +140,13 @@ class Game {
           this.playerList.forEach(element => {
             if (element.getName() === name) {
               element.addPoint();
+              score = element.getPlayerScore()[2];
             }
           });
-          this.io.to(socketid).emit(Messages.answerChecked, { answer: true, id: id });
+          this.io.to(socketid).emit(Messages.answerChecked, { answer: true, id: id, newScore : score});
         } else {
           console.log(`Server> ${name} clicked on the wrong answer !`);
-          this.io.to(socketid).emit(Messages.answerChecked, { answer: false, id: id });
+          this.io.to(socketid).emit(Messages.answerChecked, { answer: false, id: id, newScore : score });
         }
       }
     });

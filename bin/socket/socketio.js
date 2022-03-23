@@ -29,12 +29,24 @@ function io (http) {
     * Listening to the clients who ask for a username
     */
     socketClient.on(Messages.username, () => {
-      guestUserName = 'Guest_' + faker.name.firstName();
-      activeUsers.push([socketClient, socketClient.id, guestUserName, false]);
-      console.log('socket id : ' + socketClient.id + ', is identified as : ' + guestUserName);
-      const userlist = activeUsers.map(a => a.filter((b, i) => i === 1 || i === 2));
-      io.sockets.emit(Messages.broadcast, { user: userlist });
-      console.log(`Server> Displaying the client list ${userlist}`);
+      let alreadyExist = false;
+      activeUsers.forEach(element => {
+        console.log("socket id " + socketClient.id + "    element id " + element[1]);
+        if(socketClient.id == element[1]){
+            console.log("existe déjà");
+            alreadyExist = true;
+        }
+      });
+      if(!alreadyExist){
+        console.log("n'existe pas");
+        guestUserName = 'Guest_' + faker.name.firstName();
+        activeUsers.push([socketClient, socketClient.id, guestUserName, false]);
+        console.log('socket id : ' + socketClient.id + ', is identified as : ' + guestUserName);
+        const userlist = activeUsers.map(a => a.filter((b, i) => i === 1 || i === 2));
+        io.sockets.emit(Messages.broadcast, { user: userlist });
+        console.log(`Server> Displaying the client list ${userlist}`);
+      }
+      
     });
 
     /**

@@ -129,4 +129,8 @@ socket.on(Messages.answerChecked, (data) => {
       }
     }
   });
+  if(data.newScore != null){
+    const score = document.getElementById('score');
+    score.innerHTML = "Score : " + data.newScore;
+  }
 });
