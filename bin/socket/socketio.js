@@ -129,7 +129,12 @@ function io (http) {
      * Listening to the client who disconnects, close the web page
      */
     socketClient.on('disconnect', () => {
-      console.log('user disconnected');
+      console.log('user disconnected : ' + socketClient.id);
+      activeUsers.forEach(function(element, i) {
+        if(element[1] == socketClient.id){
+            activeUsers.splice(i, 1);
+        }
+      });
     });
   });
 }
