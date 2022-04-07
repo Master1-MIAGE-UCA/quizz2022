@@ -22,6 +22,8 @@ class Player {
     this.gameScore.push(0);
   }
 
+
+
   /**
    * Keep a record of the game played
    * @param {Array} tab 

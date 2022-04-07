@@ -5,12 +5,12 @@ const socket = io();
 
 /**
 * Listening to the server that notifies that the game is over
-*
+
 socket.on(Messages.gameFinished, () => {
   document.getElementById('container').hidden = true;
   // document.getElementById('container').style.display = 'none';
   document.getElementById('containerScore').hidden = false;
-}); */
+}); **/
 
 window.onload = () => {
   var id;
@@ -55,6 +55,7 @@ window.onload = () => {
 
         case "start":
           document.getElementById('home').hidden = false;
+          
           break;
       }
     }, false);
@@ -86,4 +87,20 @@ window.onload = () => {
       document.getElementById('back').hidden = true;
     });
 
+    
+    /**
+   * Add event to the "quit" button
+   */
+     document.getElementById('quit')
+     .addEventListener('click', function () {
+       socket.emit(Messages.quitQuizz);
+       document.getElementById('home').hidden = false;
+       document.querySelector('.group').style.display ='none';
+
+
+       
+
+     });
+ 
+    
 };

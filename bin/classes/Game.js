@@ -19,8 +19,11 @@ class Game {
     this.spectator = [];
     this.initPlayer(clientList);
     this.initQuizData();
+   
     this.gameStarted = false;
   }
+
+
 
   /**
    * Create the players with their socketio object and store them in an array (playerList)
@@ -32,10 +35,13 @@ class Game {
     for (let i = 0; i < clientList.length; i++) {
       this.playerList.push(new Player(clientList[i][0], clientList[i][2]));
     }
-    this.playerList.forEach(element => {
+
+   this.playerList.forEach(element => {
       element.initGameScore(this.id);
-    });
+    }); 
   }
+
+
 
   /**
    * Allows to clone the question's array (object) without keeping a reference to the copied objects
@@ -93,6 +99,8 @@ class Game {
     this.question = this.selectQuestion();
     this.sendQuestion(this.question);
   }
+
+  
 
   /**
    * Allows you to add the client who wishes to be a spectator to a spectator list
@@ -200,6 +208,8 @@ class Game {
   getCopyQuizData() {
     return this.copyQuizData;
   }
+
+
 }
 
 module.exports = Game;

@@ -45,6 +45,7 @@ function io (http) {
         const userlist = activeUsers.map(a => a.filter((b, i) => i === 1 || i === 2));
         io.sockets.emit(Messages.broadcast, { user: userlist });
         console.log(`Server> Displaying the client list ${userlist}`);
+
       }
       
     });
@@ -64,9 +65,29 @@ function io (http) {
           io.sockets.emit(Messages.alreadyStarted, null);
         }
       } else {
-        game = new Game(activeUsers, io, jsonData, '1');
-        game.start();
+        game = new Game(activeUsers, io, jsonData, '1'); 
+        game.start(); 
       }
+    });
+
+    /**
+     * Listening to the clients who decide to quit the game
+     */
+     socketClient.on(Messages.quitQuizz, (data) => {
+      console.log('GAME FINISHED');
+
+      game.getPlayerList().forEach(function(element, i) {
+        if(element.getSocket().id == socketClient.id){
+          game.getPlayerList().splice(i, 1);
+        }
+      });
+
+      if(game.getPlayerList().length==0){
+           io.sockets.emit(Messages.gameFinished, null);
+
+      }
+    
+ 
     });
 
     /**
@@ -111,11 +132,12 @@ function io (http) {
             console.log(element.getPlayerScore());
             game.sendPlayerScore(element.getPlayerScore());
           });
-          // io.sockets.emit(Messages.gameFinished, null);
+          //io.sockets.emit(Messages.gameFinished, null);
         } else {
           console.log('********************* NEXT QUESTION *********************');
           game.getPlayerList().forEach(element => {
             console.log(element.getPlayerScore());
+          
           });
           const chosenQuestion = game.selectQuestion();
           game.sendQuestion(chosenQuestion);

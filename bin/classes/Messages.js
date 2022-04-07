@@ -28,6 +28,7 @@ Messages.username = 'client:username';
 Messages.startGame = 'client:startGame';
 Messages.nextQuestion = 'client:nextQuestion';
 Messages.beginQuizz = 'client:beginQuizz';
+Messages.quitQuizz='client:quitQuizz';
 Messages.checkAnswer = 'client:checkAnswer';
 Messages.finalScore = 'client:finalScore';
 Messages.addSpectator = 'client:addSpectator';
