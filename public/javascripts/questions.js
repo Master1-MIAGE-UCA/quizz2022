@@ -3,11 +3,11 @@
 const correct = new Audio('music/correct.wav');
 const wrongA = new Audio('music/wrong.wav');
 const countd = new Audio('music/count.wav');
-
+let soundOff=false;
 /**
  * Manages the question time
  */
-function timer () {
+function timer() {
   const l = document.getElementById('l-half');
   const r = document.getElementById('r-half');
   const c = document.getElementById('count');
@@ -28,11 +28,17 @@ function timer () {
 
   TIMER = setInterval(renderCounter, 1000);
 
-  function renderCounter () {
+  function renderCounter() {
     if (c.innerHTML > 0) {
       c.innerHTML--;
-      countd.play();
-      countd.volume = 0.2;
+      console.log(soundOff)
+      if(soundOff){
+        countd.pause();
+      }
+      else{
+        countd.play();
+        countd.volume = 0.2;
+      }   
     } else {
       countd.pause();
       countd.currentTime = 0;
@@ -47,7 +53,7 @@ let numQ = 0;
  * Display the question sent to the UI
  * @param {*} data
  */
-function renderingQuestion (data) {
+function renderingQuestion(data) {
   numQ++;
   const question = document.getElementById('question');
   const numQuestion = document.getElementById('numQuestion');
@@ -60,7 +66,7 @@ function renderingQuestion (data) {
  * Display the answers sent to the UI
  * @param {*} data
  */
-function renderingAnswers (data, nodes) {
+function renderingAnswers(data, nodes) {
   const question = data.question;
   const answers = document.getElementById('answers');
 
@@ -109,7 +115,12 @@ socket.on(Messages.answerChecked, (data) => {
   buttons.forEach(element => {
     if (element.getAttribute('id') === data.id) {
       if (data.answer) {
-        correct.play();
+        if(soundOff){
+          correct.pause();
+        }
+        else{
+          correct.play();
+        }
         const right = document.querySelector('.rightAnswer');
         if (right) right.classList.remove('rightAnswer');
         element.classList.add('rightAnswer');
@@ -118,7 +129,12 @@ socket.on(Messages.answerChecked, (data) => {
           buttons[i].style.pointerEvents = 'none';
         }
       } else {
-        wrongA.play();
+        if(soundOff){
+          wrongA.pause();
+        }
+        else{
+          wrongA.play();
+        }
         const wrong = document.querySelector('.wrongAnswer');
         if (wrong) wrong.classList.remove('wrongAnswer');
         element.classList.add('wrongAnswer');
@@ -129,7 +145,7 @@ socket.on(Messages.answerChecked, (data) => {
       }
     }
   });
-  if(data.newScore != null){
+  if (data.newScore != null) {
     const score = document.getElementById('score');
     score.innerHTML = "Score : " + data.newScore;
   }

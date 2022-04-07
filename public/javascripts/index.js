@@ -13,11 +13,13 @@ socket.on(Messages.gameFinished, () => {
 }); */
 
 window.onload = () => {
+  var id;
   /**
    * Add an event to the "join as guest" button
    */
   document.getElementById('guest')
     .addEventListener('click', function () {
+      id = "guest";
       document.getElementById('home').hidden = true;
       // document.querySelector('#topnav').hidden = false;
       document.querySelector('.group').style.display = 'flex';
@@ -26,9 +28,35 @@ window.onload = () => {
       socket.emit(Messages.username, null);
     }, false);
 
-    document.getElementById('logo')
+  document.getElementById('logo')
     .addEventListener('click', function () {
-      document.getElementById('home').hidden = false;
+      if(id!="start"){
+        document.getElementById('home').hidden = false;
+        document.getElementById('back').hidden = false;
+      }
+    }, false);
+
+  document.getElementById('back')
+    .addEventListener('click', function () {
+      console.log(id);
+      switch (id) {
+        case "guest":
+          document.getElementById('home').hidden = false;
+          break;
+        case "quick":
+          const boxB = document.querySelector('.box-button');
+          boxB.style.flexGrow = 0.1;
+          document.querySelector('.trans').classList.toggle('transform-active');
+          document.querySelector('#chat').style.display = 'none';
+          document.querySelector('#list').style.display = 'none';
+          document.querySelector('.start').style.display = 'none';
+          id = "guest";
+          break;
+
+        case "start":
+          document.getElementById('home').hidden = false;
+          break;
+      }
     }, false);
 
   /**
@@ -36,6 +64,7 @@ window.onload = () => {
    */
   document.querySelector('.quick')
     .addEventListener('click', function () {
+      id = "quick";
       const boxB = document.querySelector('.box-button');
       boxB.style.flexGrow = 0.1;
       document.querySelector('.trans').classList.toggle('transform-active');
@@ -52,10 +81,9 @@ window.onload = () => {
    */
   document.querySelector('.start')
     .addEventListener('click', function () {
+      id = "start";
       socket.emit(Messages.beginQuizz, { state: true });
+      document.getElementById('back').hidden = true;
     });
 
-    
-  
-    
 };
