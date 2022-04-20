@@ -63,7 +63,8 @@ class Game {
   selectQuestion() {
     this.question = this.copyQuizData[Math.floor(Math.random() * this.copyQuizData.length)];
     this.copyQuizData.splice(this.copyQuizData.indexOf(this.question), 1);
-    delete this.question.indexreponse;
+   
+    //delete this.question.indexreponse;
     return this.question;
   }
 
@@ -73,7 +74,7 @@ class Game {
    */
   sendQuestion(chosenQuestion) {
     this.playerList.forEach(element => {
-      this.io.to(element.getSocket().id).emit(Messages.sendQuestion, { question: chosenQuestion, isSpectator: false });
+      this.io.to(element.getSocket().id).emit(Messages.sendQuestion, { question: chosenQuestion,  isSpectator: false });
     });
     if (this.spectator.length > 0) {
       this.spectator.forEach(element => {

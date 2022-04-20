@@ -18,9 +18,14 @@ socket.on(Messages.sendQuestion, (data) => {
   const question = document.querySelector('#container');
   const reponse = document.getElementById('answers');
   const nodes = document.getElementById('answers').childNodes;
+
+
   lobby.style.display = 'none';
   question.hidden = false;
-  timer();
+
+
+  timer(data.question);
+
   renderingQuestion(data.question);
   renderingAnswers(data, nodes);
 });

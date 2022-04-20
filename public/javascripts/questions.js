@@ -6,11 +6,15 @@ const countd = new Audio('music/count.wav');
 let soundOff=false;
 /**
  * Manages the question time
+ * @param {*} data
  */
-function timer() {
+function timer(data) {
   const l = document.getElementById('l-half');
   const r = document.getElementById('r-half');
   const c = document.getElementById('count');
+  const rightResponse=document.getElementById('rightResponse');
+  rightResponse.hidden=true;
+
 
   c.innerHTML = 10;
   l.classList.remove('l-half');
@@ -27,7 +31,7 @@ function timer() {
   c.classList.add('count');
 
   TIMER = setInterval(renderCounter, 1000);
-
+  
   function renderCounter() {
     if (c.innerHTML > 0) {
       c.innerHTML--;
@@ -43,7 +47,20 @@ function timer() {
       countd.pause();
       countd.currentTime = 0;
       clearInterval(TIMER);
-      nextQuestion();
+      if(data != null)
+      {
+      rightResponse.hidden=false;
+      rightResponse.innerHTML ="The right answer is: "+data.proposition[data.indexreponse];}
+
+      setTimeout(followingtreatment, 4000) //Wait 10 seconds before continuing to next function: nextQuestion();
+
+        function followingtreatment()
+        {
+          nextQuestion();
+        }
+
+
+
     }
   }
 }
@@ -57,7 +74,7 @@ function renderingQuestion(data) {
   numQ++;
   const question = document.getElementById('question');
   const numQuestion = document.getElementById('numQuestion');
-
+  
   question.innerHTML = data.question;
   numQuestion.innerHTML = 'Question n°' + numQ + '/10';
 }
