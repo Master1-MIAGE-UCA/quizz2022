@@ -46,20 +46,21 @@ function timer(data) {
     } else {
       countd.pause();
       countd.currentTime = 0;
-      clearInterval(TIMER);
-      if(data != null)
-      {
+      clearInterval(TIMER);  
+      //disable buttons after time runs out so the player can't cheat
+      const buttons = answers.querySelectorAll('button');
+      buttons.forEach(element => {
+            for (let i = 0; i < buttons.length; i++) {
+              buttons[i].disabled = true;
+              buttons[i].style.pointerEvents = 'none';
+            } 
+      });
+      if(data != null){
       rightResponse.hidden=false;
-      rightResponse.innerHTML ="The right answer is: "+data.proposition[data.indexreponse];}
+      rightResponse.innerHTML ="The right answer is: "+data.proposition[data.indexreponse];
+                      }
 
-      setTimeout(followingtreatment, 4000) //Wait 10 seconds before continuing to next function: nextQuestion();
-
-        function followingtreatment()
-        {
-          nextQuestion();
-        }
-
-
+      setTimeout(nextQuestion, 4000) //Wait 4 seconds before continuing to next function: nextQuestion();
 
     }
   }
