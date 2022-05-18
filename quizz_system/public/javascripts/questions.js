@@ -75,7 +75,7 @@ function renderingQuestion(data) {
   numQ++;
   const question = document.getElementById('question');
   const numQuestion = document.getElementById('numQuestion');
-  
+
   question.innerHTML = data.question;
   numQuestion.innerHTML = 'Question n°' + numQ + '/10';
 }

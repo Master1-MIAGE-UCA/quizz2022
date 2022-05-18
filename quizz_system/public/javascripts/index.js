@@ -33,6 +33,7 @@ window.onload = () => {
       if(id!="start"){
         document.getElementById('home').hidden = false;
         document.getElementById('back').hidden = false;
+        document.querySelector('.group').style.display ='none';
       }
     }, false);
 

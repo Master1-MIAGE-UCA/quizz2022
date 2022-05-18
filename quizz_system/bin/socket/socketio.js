@@ -18,6 +18,7 @@ function io (http) {
    * Array of players connected
    */
   const activeUsers = [];
+  const quitUsers=[];
 
   /**
    * Listening to the clients who try to connect to the server
@@ -47,7 +48,22 @@ function io (http) {
         console.log(`Server> Displaying the client list ${userlist}`);
 
       }
-      
+      else {
+        //the player who left the game can come back to play and join the other players (at the same level)
+        quitUsers.forEach(function(element, i) {
+          if(element.getSocket().id== socketClient.id){
+            activeUsers.forEach(function(elem,j)
+            {
+             if(elem[1] == socketClient.id){
+              game.getPlayerList().push(element);
+              game.setPlayerStateTrue(socketClient);
+            }
+            }
+            );        
+                    }
+                  });
+       
+      }
     });
 
     /**
@@ -75,13 +91,15 @@ function io (http) {
      */
      socketClient.on(Messages.quitQuizz, (data) => {
       console.log('GAME FINISHED');
-
       game.getPlayerList().forEach(function(element, i) {
         if(element.getSocket().id == socketClient.id){
+          quitUsers.push(element);
           game.getPlayerList().splice(i, 1);
+
         }
       });
 
+      // when all players leave the game
       if(game.getPlayerList().length==0){
            io.sockets.emit(Messages.gameFinished, null);
 
