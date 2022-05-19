@@ -32,6 +32,8 @@ Messages.quitQuizz='client:quitQuizz';
 Messages.checkAnswer = 'client:checkAnswer';
 Messages.finalScore = 'client:finalScore';
 Messages.addSpectator = 'client:addSpectator';
+Messages.createGame = 'client:createGame';
+Messages.listRooms = 'client:listRooms';
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Messages;

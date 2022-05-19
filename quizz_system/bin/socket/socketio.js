@@ -2,6 +2,7 @@ const Messages = require('../classes/Messages');
 const Game = require('../classes/Game');
 const fs = require('fs');
 const faker = require('faker');
+const { makeid } = require('../classes/utils');
 
 function io (http) {
   const io = require('socket.io')(http);
@@ -18,8 +19,15 @@ function io (http) {
    * Array of players connected
    */
   const activeUsers = [];
+  let activeUsersRoom = [];
   const quitUsers=[];
 
+  /**
+   * rooms created
+   */
+  let rooms = [];
+  const clientRooms = {};
+  
   /**
    * Listening to the clients who try to connect to the server
    */
@@ -91,7 +99,8 @@ function io (http) {
      */
      socketClient.on(Messages.quitQuizz, (data) => {
       console.log('GAME FINISHED');
-      game.getPlayerList().forEach(function(element, i) {
+
+      game.getPlayerList().forEach((element, i) => {
         if(element.getSocket().id == socketClient.id){
           quitUsers.push(element);
           game.getPlayerList().splice(i, 1);
@@ -166,15 +175,48 @@ function io (http) {
     });
 
     /**
+     * Create a public game
+     */
+    socketClient.on(Messages.createGame, () => {
+      /* socketClient.join(room);
+      rooms.push(room);
+      console.log('room created : ' + rooms); */
+      
+      let roomName = makeid(5);
+      console.log(roomName);
+      clientRooms[socketClient.id] = roomName;
+      socketClient.emit('gameCode', roomName);
+      socketClient.join(roomName);
+      activeUsersRoom.push([socketClient, socketClient.id, guestUserName, false]);
+      
+    });
+
+    socketClient.on(Messages.listRooms, () => {
+      //console.log("envoyer la liste des rooms");
+      socketClient.emit(Messages.listRooms, rooms);
+    });
+
+    socketClient.on('joinGame', (roomName) => {
+    
+    socketClient.join(roomName);
+    activeUsersRoom.push([socketClient, socketClient.id, guestUserName, false]);
+
+  
+    });
+
+    /**
      * Listening to the client who disconnects, close the web page
      */
     socketClient.on('disconnect', () => {
       console.log('user disconnected : ' + socketClient.id);
-      activeUsers.forEach(function(element, i) {
+      activeUsers.forEach((element, i) => {
         if(element[1] == socketClient.id){
             activeUsers.splice(i, 1);
         }
       });
+
+      //methode pour mettre à jour la liste des joueurs ici
+
     });
   });
 }

@@ -108,6 +108,12 @@ function setPlayerName(tab) {
 function toggleSound(img) {
   
   soundOff = !soundOff;
-  
-  img.src = img.src == "http://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/500px-Speaker_Icon.svg.png" ? "https://cdn2.iconfinder.com/data/icons/picons-essentials/57/music_off-512.png" : "http://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/500px-Speaker_Icon.svg.png";
+
+  if (img.getAttribute('src') === "../assets/soundON.png") {
+
+        img.setAttribute('src', "../assets/soundOFF.png");
+    }
+    else {
+        img.setAttribute('src', "../assets/soundON.png");
+    }
 }
