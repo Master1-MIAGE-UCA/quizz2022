@@ -53,11 +53,20 @@ function timer(data) {
             for (let i = 0; i < buttons.length; i++) {
               buttons[i].disabled = true;
               buttons[i].style.pointerEvents = 'none';
+              if(buttons[i].textContent===data.proposition[data.indexreponse]){
+                buttons[i].style.border = "solid 12px green";
+                buttons[i].style.fontSize="30px";
+
+              }
             } 
       });
       if(data != null){
       rightResponse.hidden=false;
-      rightResponse.innerHTML ="The right answer is: "+data.proposition[data.indexreponse];
+      rightResponse.innerHTML ="✓ The right answer is: "+data.proposition[data.indexreponse];
+      rightResponse.style.fontSize="20px"
+      rightResponse.style.color="green"
+
+    
                       }
 
       setTimeout(nextQuestion, 4000) //Wait 4 seconds before continuing to next function: nextQuestion();
