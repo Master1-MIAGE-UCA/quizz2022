@@ -364,6 +364,65 @@ router.get('/questions/gen10/allRandom', processParams, findArtists, async funct
   res.status(200).json(questions);
 });
 
+
+// Pour la génération de x questions faciles de type aléatoire 
+router.get('/questions/gen10/test', processParams, findArtists, async function (req, res, next) {
+  const questions = [];
+  let nbQuestionToGenerate = parseInt(req.query.nbQuestion);
+  let questionType;
+  let random;
+
+  for (const artist of req.artistsBD) {
+    questionType = Math.floor(Math.random() * 3);
+
+    switch (questionType) {
+      case 0:
+        if (!artist.birthDate) continue;
+        const fakeDates = generateFakeDate(artist.birthDate);
+        
+        random = Math.floor(Math.random() * 4);
+
+        fakeDates.splice(random, 0, artist.birthDate);
+        questions.push({ question: `Quelle est la date de naissance de ${artist.name} ?`, proposition: fakeDates, 'index-reponse': random });
+        nbQuestionToGenerate--;
+        break;
+
+      case 1:
+        const album = await Album.findOne({ artist: artist._id });
+        if (!album) {
+          continue;
+        }
+        const countAlbums = await Album.countDocuments({ artist: { $ne: artist._id } });
+        const albums = await Album.find({ artist: { $ne: artist._id } }).skip(getRandomIntInclusive(0, countAlbums - 4)).limit(3);
+        const fakeAlbums = albums.map(a => a.title);
+        random = Math.floor(Math.random() * 4);
+
+        fakeAlbums.splice(random, 0, album.title);
+        questions.push({ question: `Quel album a été réalisé par  "${artist.name}" ?`, proposition: fakeAlbums, indexreponse: random });
+        nbQuestionToGenerate--;
+        break;
+
+      case 2:
+        const song = await Song.findOne({ artist: artist._id });
+        if (!song) {
+          continue;
+        }
+        const countSongs = await Song.countDocuments({ artist: { $ne: artist._id } });
+        const songs = await Song.find({ artist: { $ne: artist._id } }).skip(getRandomIntInclusive(0, countSongs - 4)).limit(3);
+        const fakeSongs = songs.map(a => a.title);
+        random = Math.floor(Math.random() * 4);
+
+        fakeSongs.splice(random, 0, song.title);
+        questions.push({ question: `Quelle chanson a été réalisée par  "${artist.name}" ?`, proposition: fakeSongs, indexreponse: random });
+        nbQuestionToGenerate--;
+    }
+
+    if(nbQuestionToGenerate == 0){
+      res.status(200).json(questions);
+    }
+  }
+});
+
 router.get('/fake/chanson', async function (req, res, next) {
   const countSongs = await Song.countDocuments();
 

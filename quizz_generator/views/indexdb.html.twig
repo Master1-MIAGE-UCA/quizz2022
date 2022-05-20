@@ -10,6 +10,7 @@
   <script src="/javascripts/api/navbar.js"></script>
   <script src="/javascripts/api/grid.js"></script>
   <script src="/javascripts/api/artistesdb.js"></script>
+  <script src="/javascripts/api/testdb.js"></script>
 
   <link rel="stylesheet" href="/stylesheets/api/index.css">
   <link rel="stylesheet" href="/stylesheets/api/navbar.css">
@@ -29,12 +30,15 @@
           <li class="nav-item">
               <a class="nav-link" href="javascript:void(0);"><i class="fa fa-users" aria-hidden="true"></i>Artistes</a>
           </li>
-          <!--<li class="nav-item">
+          <li class="nav-item">
               <a class="nav-link" href="javascript:void(0);"><i class="fa fa-book" aria-hidden="true"></i>Albums</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="javascript:void(0);"><i class="fa fa-microphone" aria-hidden="true"></i>Chansons</a>
-          </li>-->
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-gear" aria-hidden="true"></i>Test</a>
+          </li>
       </ul>
   </div>
 </nav>
@@ -48,7 +52,7 @@
     <img src="/assets/images/Presentation.png" alt="imgForm">
 </div>
 
-<!-- Ariste -->
+<!-- Artistes -->
 <div id="artistesDiv">
   <h1>Artistes</h1>
 
@@ -270,6 +274,37 @@
   </div>
   <div class="backToArtistDivFromAleatoire" style="display: none;">
     <button class="backToArtistDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+
+<!-- Test -->
+<div id="testDiv">
+  <h1>Test</h1>
+
+  <div class="gallery">
+    <h1>Questions de test</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>{"question":"Quel est la date de naissance de Michael Jackson ?","proposition":["1957-10-28","1958-08-29","1963-02-15","1961-06-02"],"index-reponse":1}</textarea>
+    <div class="desc">Retourne des questions faciles de tous les types, chacune étant composée d'une reponse juste et de 3 autres fausses.</div><br>
+    <button id="testAleatoire" type="button">Serie aléatoire</button>
+  </div>
+
+</div>
+
+<!-- Test: Générer questions -->
+<div id="testAleatoireDiv" style="display: none;">
+  <h1>Test</h1>
+  <h2>Generation d'une serie de X questions faciles (type: date, album et chanson) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbTestQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsTest" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoireTest" style="display: none;">
+    <button class="downloadButtonTest"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToTestDivFromAleatoireTest" style="display: none;">
+    <button class="backToTestDivBtnFromAleatoire" type="button">Retours</button>
   </div>
 </div>
 

@@ -475,37 +475,52 @@ router.get('/questions/gen10/test', async function (req, res, next) {
   const questions = [];
   const artists = [];
   const pagesVisited = [];
+
+
   while (artists.length < parseInt(req.query.nbQuestion)) {
     let skip;
     do {
-      skip = Math.floor(Math.random() * 100);
+      skip = Math.floor(Math.random() * 388);
     } while (pagesVisited.indexOf(skip) !== -1);
 
     pagesVisited.push(skip);
+    console.log(skip);
 
-    const { body } = await got('https://wasabi.i3s.unice.fr/api/v1/artist/count/album?skip=' + skip + '&limit=10', {
+    const { body } = await got('https://wasabi.i3s.unice.fr/api/v1/artist_all/' + skip*200, {
       responseType: 'json'
     });
+    
     for (const artist of body) {
-      const { body } = await got(`https://wasabi.i3s.unice.fr/api/v1/artist/name/${artist.name}`, {
+      if(artist.deezerFans > 1000000 && artist.lifeSpan.begin != ""){
+        //console.log(artist.name + " --- " + artist.deezerFans);
+        artists.push({name : artist.name, deezerFans : artist.deezerFans, begin : artist.lifeSpan.begin});
+        const albums = artist.albums
+        console.log("- " + artist.name)
+        //console.log(albums)
+        albums.forEach(album => {console.log(album.title)})
+      }
+      
+      /*const { body } = await got(`https://wasabi.i3s.unice.fr/api/v1/artist/name/${artist.name}`, {
         responseType: 'json'
       });
 
       if (body && body !== null && body !== 'null' && body.gender && body.gender !== '' && body.lifeSpan && body.lifeSpan.begin) {
         artists.push({ name: body.name, lifeSpan: body.lifeSpan });
         if (artists.length === parseInt(req.query.nbQuestion)) break;
-      }
+      }*/
     }
   }
 
   artists.forEach(artist => {
-    const fakeDates = generateFakeDate(artist.lifeSpan.begin);
+    console.log(artist.name + " ---- " + artist.deezerFans);
+    
+    const fakeDates = generateFakeDate(artist.begin);
 
     const random = Math.floor(Math.random() * 4);
 
-    fakeDates.splice(random, 0, artist.lifeSpan.begin);
+    fakeDates.splice(random, 0, artist.begin);
 
-    questions.push({ question: `Quel est la date de naissance de ${artist.name} ?`, proposition: fakeDates, 'index-reponse': random });
+    questions.push({ question: `Quel est la daaaaaate de naissance de ${artist.name} ?`, proposition: fakeDates, 'index-reponse': random });
   });
 
   res.status(200).json(questions);

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "populate": "node ./bin/populateDatabase.js",
+    "populateTestData": "node ./bin/populateDatabaseTest.js testData",
     "test": "node ./bin/testSpeed.js"
   },
   "dependencies": {

@@ -7,28 +7,7 @@ const Song = require('./db/Song');
 const fs = require('fs');
 
 let loadTestData = false;
-let artists = [
-  "ABBA",
-"AC/DC",
-"Adele",
-"Akon",
-"Alicia Keys",
-"Ariana Grande",
-"Avicii",
-"Avril Lavigne",
-"Beyoncé",
-"Blink-182",
-"Bob Marley & The Wailers",
-"Bring Me The Horizon",
-"Britney Spears",
-"Bruno Mars",
-"Calvin Harris",
-"Camila Cabello",
-"Carly Rae Jepsen",
-"Charli XCX",
-"Chris Brown",
-"Christina Aguilera"
-];
+let artists;
 
 process.argv.forEach((val, index) => {
   //console.log(`${index}: ${val}`);
@@ -36,16 +15,6 @@ process.argv.forEach((val, index) => {
     loadTestData = true;
   }
 });
-/*
-fs.readFile('./bin/artists.json', (err, data) => {
-  if (err) throw err;
-  let artists = JSON.parse(data);
-  //console.log(artists);
-  //artists.forEach((artist) => console.log(artist));
-});*/
-
-//console.log(artists)
-//artists.forEach((artist) => console.log(artist));
 
 mongoose.connect('mongodb://localhost:27017/QuizzGen');
 
@@ -53,10 +22,16 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('MongoDB Connected');
-  populate();
+  fs.readFile('./bin/artists.json', (err, data) => {
+    if (err) throw err;
+    artists = JSON.parse(data);
+    //console.log(artists.length);
+    populate();
+  });
 });
 
 async function populate() {
+  console.log("dans populate ---- " + artists.length);
   await Artist.deleteMany();
   await Album.deleteMany();
   await Song.deleteMany();
@@ -71,38 +46,37 @@ async function populate() {
   let nbLoops;
   let parameter;
 
-  if(loadTestData){
+  if (loadTestData) {
     increment = 1;
     nbLoops = artists.length;
   }
-  else{
+  else {
     increment = 200;
     nbLoops = 77491;
   }
-  
-  console.log("increment : " + increment);
-  console.log("nbLoops : " + nbLoops);
 
   for (let i = 0; i < nbLoops; i += increment) {
-    if(loadTestData){
-      parameter = "name/" + artists[i];
+    if (loadTestData) {
+      parameter = "name/" + encodeURIComponent(artists[i]);
     }
-    else{
+    else {
       parameter = i;
     }
-    console.log("parameter : " + parameter);
-    console.log(`https://wasabi.i3s.unice.fr/api/v1/artist_all/${parameter}`);
+
     const { body } = await got(`https://wasabi.i3s.unice.fr/api/v1/artist_all/${parameter}`, {
       responseType: 'json'
     });
 
-    if (body.error) {
+    let artist = body;
+
+    //console.log(artist);
+    if (artist.error) {
       continue;
     }
-    
-    console.log(body);
-    await Promise.all(body.map(async artist => {
-      if (!artist || artist === null || artist === 'null' || !artist.gender || artist.gender === '') {
+
+    async function saveArtist() {
+      if (!artist || artist === null || artist === 'null') {
+        console.log("pb artist")
         return;
       }
 
@@ -148,7 +122,17 @@ async function populate() {
       }
 
       artist.albums.forEach(async album => {
-        if (!album || album === null || album === 'null' || !album.songs || album.songs.length <= 0 || !album.title || album.title.toLowerCase().includes('song')) {
+        if (!album || album === null || album === 'null' || !album.songs || album.songs.length <= 0 || !album.title || album.title.toLowerCase().includes('song')){
+        if(album.title.toLowerCase().includes('songs featuring') 
+        || album.title.toLowerCase() == 'other songs' 
+        || album.title.toLowerCase() == 'live and unreleased songs' 
+        || album.title.toLowerCase() == 'songs from compilations and soundtracks'
+        || album.title.toLowerCase() == 'songs on compilations and soundtracks'
+        || album.title.toLowerCase() == 'songs on soundtracks and compilations'
+        || album.title.toLowerCase() == 'songs on compilations') {
+          return
+        }
+          console.log(artist.name + " ------ album : " + album.title);
           return;
         }
 
@@ -175,7 +159,8 @@ async function populate() {
         }
 
         const songs = album.songs.map(song => {
-          if (!song || song === null || song === 'null' || !song.title || song.title.toLowerCase().includes('song')) {
+          if (!song || song === null || song === 'null' || !song.title) {
+            console.log(artist.name + " ------ song : " + song.title);
             return null;
           }
 
@@ -204,14 +189,18 @@ async function populate() {
           console.error(error);
         }
       });
-    }));
-    if(loadTestData){
+
+    }
+
+    await saveArtist();
+
+    if (loadTestData) {
       console.log(i + 1 + " artists done out of " + artists.length);
     }
-    else{
+    else {
       console.log(Math.min((i + 200), 77491) + ' artists done out of 77491');
     }
-    
+
   }
   console.log('DONE');
   process.exit(0);
