@@ -81,7 +81,8 @@ let numQ = 0;
  * @param {*} data
  */
 function renderingQuestion(data) {
-  numQ++;
+  numQ=data.num;
+
   const question = document.getElementById('question');
   const numQuestion = document.getElementById('numQuestion');
 

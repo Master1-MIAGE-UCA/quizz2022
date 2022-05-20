@@ -63,7 +63,7 @@ class Game {
   selectQuestion() {
     this.question = this.copyQuizData[Math.floor(Math.random() * this.copyQuizData.length)];
     this.copyQuizData.splice(this.copyQuizData.indexOf(this.question), 1);
-   
+   this.question.num=10-this.copyQuizData.length;
     //delete this.question.indexreponse;
     return this.question;
   }
