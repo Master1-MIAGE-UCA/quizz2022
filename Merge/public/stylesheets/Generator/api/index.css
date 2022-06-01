@@ -1,0 +1,99 @@
+.result-author.active {
+    display: inline-block;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+.result-author.error {
+    display: inline-block;
+    padding: 5px;
+    color: red;
+    border: 2px solid red;
+}
+
+#fake-date, #fake-chansons, #fake-albums, #fake-all, #create-json, #create-json-chanson, #create-json-album, #create-json-all {
+    display: none;
+    padding: 5px;
+}
+
+#fake-date button,
+#fake-chansons button,
+#fake-albums button,
+#fake-all button,
+#create-json button,
+#create-json-chanson button,
+#create-json-album button,
+#create-json-all button,
+.backToArtistDivFromPrecis button,
+.backToArtistDivFromAleatoire button,
+.backToTestDivFromAleatoireTest button,
+.downloadDivFromAleatoire button,
+.downloadDivFromAleatoireTest button {
+    width: 30%;
+    background-color: #e76161;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#fake-date button:disabled,
+#fake-chansons button:disabled,
+#fake-album:disabled,
+#fake-all:disabled,
+#create-json button:disabled,
+#create-json-chanson button:disabled,
+#create-json-album button:disabled,
+#create-json-all button:disabled,
+.backToArtistDivFromPrecis button:disabled,
+.backToArtistDivFromAleatoire button:disabled,
+.downloadDivFromAleatoire button:disabled {
+    width: 30%;
+    background-color: #666666;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: default;
+}
+
+#create-json textarea, #create-json-chanson textarea, #create-json-album textarea, #create-json-all textarea {
+    display: block;
+    width: 30%;
+    height: 100px;
+    text-align: center;
+    margin: auto;
+}
+
+#dateArtisteAleatoireDiv textarea, #chansonArtisteAleatoireDiv textarea, #albumArtisteAleatoireDiv textarea, #allArtisteAleatoireDiv textarea, #testAleatoireDiv textarea {
+    display: block;
+    width: 30%;
+    height: 500px;
+    text-align: center;
+    margin: auto;
+    resize: none;
+}
+
+#popularityDate,
+#popularityAlbum,
+#popularityChanson,
+#popularityAll {
+    width: 30%;
+}
+
+#dateMinDate, #dateMaxDate,
+#dateMinAlbum, #dateMaxAlbum,
+#dateMinChanson, #dateMaxChanson,
+#dateMinAll, #dateMaxAll {
+    width: 14.90%;
+}
+
+#artistGenresDate,
+#artistGenresAlbum,
+#artistGenresChanson,
+#artistGenresAll {
+    width: 30%;
+}
