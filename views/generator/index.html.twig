@@ -1,0 +1,281 @@
+{% extends 'generator/layout.html.twig' %}
+
+{% block head %}
+  <script type='module' src='/javascripts/jquery'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src="/generator/javascripts/api/index.js"></script>
+  <script src="/generator/javascripts/api/navbar.js"></script>
+  <script src="/generator/javascripts/api/grid.js"></script>
+  <script src="/generator/javascripts/api/artistes.js"></script>
+  <script src="/generator/javascripts/api/test.js"></script>
+
+  <link rel="stylesheet" href="/generator/stylesheets/api/index.css">
+  <link rel="stylesheet" href="/generator/stylesheets/api/navbar.css">
+  <link rel="stylesheet" href="/generator/stylesheets/api/grid.css">
+{% endblock %}
+
+{% block body %}
+
+<!-- Menu de navigation -->
+<nav class="navbar navbar-expand-custom navbar-mainbg">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+          <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+          <li class="nav-item active">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-home" aria-hidden="true"></i>Accueil</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-users" aria-hidden="true"></i>Artistes</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-book" aria-hidden="true"></i>Albums</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-microphone" aria-hidden="true"></i>Chansons</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0);"><i class="fa fa-gear" aria-hidden="true"></i>Test</a>
+          </li>
+      </ul>
+  </div>
+</nav>
+
+<!-- Accueil -->
+<div id="accueil">
+  <h1>Bienvenue sur notre generateur de question musicale</h1>
+  <p>Via ce site, vous allez pouvoir generer une grande quantite de question musicale a integerer dans votre jeux de quiz. 
+    Toutes les informations utilisé afin de generer des questions proviennent de la base de donne <a href="https://wasabi.i3s.unice.fr/#/">Wasabi</a>.
+    Choisissez le type de questions que vous souhaitez, entrez les informations demander et recuperer un format JSON a integrer a votre Quiz !</p><br>
+    <img src="/generator/assets/images/Presentation.png" alt="imgForm">
+</div>
+
+<!-- Artistes -->
+<div id="artistesDiv">
+  <h1>Artistes</h1>
+
+  <div class="gallery">
+    <h1>Question a Date</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>{"question":"Quel est la date de naissance de Michael Jackson ?","proposition":["1957-10-28","1958-08-29","1963-02-15","1961-06-02"],"index-reponse":1}</textarea>
+    <div class="desc">Retourne une question, composer d'une reponse juste et de 3 autres fausses, sur la date de naissance d'un artiste precis. Ou bien une serie de X questions/reponse sur des artistes pris aleatoirement.</div><br>
+    <button id="dateArtistePrecis" type="button">Artiste precis</button>
+    <button id="dateArtisteAleatoire" type="button">Serie aleatoire</button>
+  </div>
+
+  <div class="gallery">
+    <h1>Question a Albums</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>{"question":"Quelle album a été réalisé par  \"Amelia Curran\" ?","proposition":["Question","Storm In Your Brains","Ambrosia","War Brides"],"index-reponse":3}</textarea>
+    <div class="desc">Retourne une question, composer d'une reponse juste et de 3 autres fausses, sur les albums d'un artiste precis. Ou bien une serie de X questions/reponse sur des artistes pris aleatoirement.</div><br>
+    <button id="albumArtistePrecis" type="button">Artiste precis</button>
+    <button id="albumArtisteAleatoire" type="button">Serie aleatoire</button>
+  </div>
+
+  <div class="gallery">
+    <h1>Question a Chansons</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>{"question":"Quelle chanson a été chanté par \"Bill Nelson\" ?","proposition":["Przebojowa Kolekcja","Boys Life","Northern Dream","Broken Bones And Bloody Kisses"],"index-reponse":2}</textarea>
+    <div class="desc">Retourne une question, composer d'une reponse juste et de 3 autres fausses, sur les morceaux d'un artiste precis. Ou bien une serie de X questions/reponse sur des artistes pris aleatoirement.</div><br>
+    <button id="chansonArtistePrecis" type="button">Artiste precis</button>
+    <button id="chansonArtisteAleatoire" type="button">Serie aleatoire</button>
+  </div>
+
+  <div class="gallery">
+    <h1>Tout en un !</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>[{"question":"Quel est la date de naissance de Michael Jackson ?","proposition":["1962-04-21","1958-08-29","1957-03-06","1953-05-31"],"index-reponse":1},{"question":"Quelle album a été réalisé par  \"Michael Jackson\" ?","proposition":["Przebojowa Kolekcja","Got To Be There","Boys Life","Broken Bones And Bloody Kisses"],"index-reponse":1},{"question":"Quelle album a été réalisé par  \"Michael Jackson\" ?","proposition":["Altar:Stop The Silence","Alright","Unicorn","Got To Be There"],"index-reponse":3}]</textarea>
+    <div class="desc">Retourne une question, composer d'une reponse juste et de 3 autres fausses, sur la date de naissance, les albums et les morceaux d'un artiste precis. Ou bien une serie de X questions/reponse sur des artistes pris aleatoirement.</div>
+    <button id="allArtistePrecis" type="button">Artiste precis</button>
+    <button id="allArtisteAleatoire" type="button">Serie aleatoire</button>
+  </div>
+</div>
+
+<!-- Artiste: Question a Date -->
+<div id="dateArtistePrecisDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une question (type: date) a partir d'un artiste precis</h2>
+  <form class="form-author">
+    <label for="fnameDate">Prenom de l'artiste</label>
+    <input required="true" type="text" id="fnameDate" name="firstname" placeholder="Prenom de l'artiste..">
+    <label for="lnameDate">Nom de famille de l'artiste</label>
+    <input type="text" id="lnameDate" name="lastname" placeholder="Nom de famille de l'artiste..">
+    <label for="date">Type de date</label>
+    <select id="date" name="date">
+      <option value="birth">Naissance</option>
+      <option value="death">Mort</option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
+  <div class="result-author"></div>
+  <div id="fake-date">
+    <button id="generate-date-button" type="button">Générer des fausses réponses</button>
+  </div>
+  <div id="create-json">
+    <button id="generate-json" type="button">Générer le .json</button>
+  </div>
+  <div class="backToArtistDivFromPrecis">
+    <button class="backToArtistDivBtnFromPrecis" type="button">Retours</button>
+  </div>
+</div>
+
+<div id="dateArtisteAleatoireDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une serie de X questions (type: date) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbDateQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsDate" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoire" style="display: none;">
+    <button class="downloadButton"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToArtistDivFromAleatoire" style="display: none;">
+    <button class="backToArtistDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+<!-- Artiste: Question a Albums -->
+<div id="albumArtistePrecisDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une question (type: album) a partir d'un artiste precis</h2>
+  <form class="form-author">
+    <label for="fnameAlbum">Prenom de l'artiste</label>
+    <input required="true" type="text" id="fnameAlbum" name="firstname" placeholder="Prenom de l'artiste..">
+    <label for="lnameAlbum">Nom de famille de l'artiste</label>
+    <input type="text" id="lnameAlbum" name="lastname" placeholder="Nom de famille de l'artiste..">
+    <input type="submit" value="Submit">
+  </form>
+  <div class="result-author"></div>
+  <div id="fake-albums">
+    <button id="generate-albums-button" type="button">Générer des fausses réponses</button>
+  </div>
+  <div id="create-json-album">
+    <button id="generate-json-album" type="button">Générer le .json</button>
+  </div>
+  <div class="backToArtistDivFromPrecis">
+    <button class="backToArtistDivBtnFromPrecis" type="button">Retours</button>
+  </div>
+</div>
+
+<div id="albumArtisteAleatoireDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une serie de X questions (type: albums) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbAlbumsQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsAlbum" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoire" style="display: none;">
+    <button class="downloadButton"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToArtistDivFromAleatoire" style="display: none;">
+    <button class="backToArtistDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+<!-- Artiste: Question a Chansons -->
+<div id="chansonArtistePrecisDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une question (type: chanson) a partir d'un artiste precis</h2>
+  <form class="form-author">
+    <label for="fnameChanson">Prenom de l'artiste</label>
+    <input required="true" type="text" id="fnameChanson" name="firstname" placeholder="Prenom de l'artiste..">
+    <label for="lnameChanson">Nom de famille de l'artiste</label>
+    <input type="text" id="lnameChanson" name="lastname" placeholder="Nom de famille de l'artiste..">
+    <input type="submit" value="Submit">
+  </form>
+  <div class="result-author"></div>
+  <div id="fake-chansons">
+    <button id="generate-chansons-button" type="button">Générer des fausses réponses</button>
+  </div>
+  <div id="create-json-chanson">
+    <button id="generate-json-chanson" type="button">Générer le .json</button>
+  </div>
+  <div class="backToArtistDivFromPrecis">
+    <button class="backToArtistDivBtnFromPrecis" type="button">Retours</button>
+  </div>
+</div>
+
+<div id="chansonArtisteAleatoireDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une serie de X questions (type: chansons) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbChansonsQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsChanson" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoire" style="display: none;">
+    <button class="downloadButton"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToArtistDivFromAleatoire" style="display: none;">
+    <button class="backToArtistDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+<!-- Artiste: Tout en un -->
+<div id="allArtistePrecisDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une question (type: date, album et chanson) a partir d'un artiste precis</h2>
+  <form class="form-author">
+    <label for="fnameAll">Prenom de l'artiste</label>
+    <input required="true" type="text" id="fnameAll" name="firstname" placeholder="Prenom de l'artiste..">
+    <label for="lnameAll">Nom de famille de l'artiste</label>
+    <input type="text" id="lnameAll" name="lastname" placeholder="Nom de famille de l'artiste..">
+    <input type="submit" value="Submit">
+  </form>
+  <p id="loading"></p>
+  <div id="create-json-all"></div>
+  <div class="backToArtistDivFromPrecis">
+    <button class="backToArtistDivBtnFromPrecis" type="button">Retours</button>
+  </div>
+</div>
+
+<div id="allArtisteAleatoireDiv" style="display: none;">
+  <h1>Artiste</h1>
+  <h2>Generation d'une serie de X questions (type: date, album et chanson) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbAllQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsAll" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoire" style="display: none;">
+    <button class="downloadButton"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToArtistDivFromAleatoire" style="display: none;">
+    <button class="backToArtistDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+
+<!-- Test -->
+<div id="testDiv">
+  <h1>Test</h1>
+
+  <div class="gallery">
+    <h1>Questions de test</h1>
+    <p>(exemple de resultat ci-dessous)</p>
+    <textarea disabled>{"question":"Quel est la date de naissance de Michael Jackson ?","proposition":["1957-10-28","1958-08-29","1963-02-15","1961-06-02"],"index-reponse":1}</textarea>
+    <div class="desc">Retourne des questions faciles de tous les types, chacune étant composée d'une reponse juste et de 3 autres fausses.</div><br>
+    <button id="testAleatoire" type="button">Serie aléatoire</button>
+  </div>
+
+</div>
+
+<!-- Test: Générer questions -->
+<div id="testAleatoireDiv" style="display: none;">
+  <h1>Test</h1>
+  <h2>Generation d'une serie de X questions faciles (type: date, album et chanson) a partir d'artistes aleatoire</h2>
+  <input required="true" type="number" id="nbTestQuestion" placeholder="Nombre de questions" min="1" max="100">
+  <button id="genererXQuestionsTest" type="button">Générer</button>
+  <p></p>
+  <textarea></textarea>
+  <div class="downloadDivFromAleatoireTest" style="display: none;">
+    <button class="downloadButtonTest"><i class="fa fa-download"></i> Download</button>
+  </div>
+  <div class="backToTestDivFromAleatoireTest" style="display: none;">
+    <button class="backToTestDivBtnFromAleatoire" type="button">Retours</button>
+  </div>
+</div>
+
+
+
+{% endblock %}

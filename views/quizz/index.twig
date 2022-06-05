@@ -1,0 +1,18 @@
+{% extends 'quizz/layout.twig' %}
+
+{% block head %}
+  <script src="/quizz/javascripts/index.js"></script>
+  <script src="/quizz/javascripts/questions.js"></script>
+  <script src="/quizz/javascripts/score.js"></script>
+  <script src="/quizz/javascripts/lobby.js"></script>
+{% endblock %}
+
+{% block body %}
+  <div id="home">
+   <div id="button-start">
+      <button class="corner-button"><span>Log in or Sign in</span></button>
+      <button class="corner-button" id="guest"><span>Join as a guest</span></button>
+    </div>
+  </div>
+  {% include 'quizz/lobby.twig' %}
+{% endblock %}
