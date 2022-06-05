@@ -1,0 +1,39 @@
+<div class="group">
+  {% include 'quizz/navbar.twig' %}
+  <div id="back"> 
+  <button type="button" class="corner-button" style="width:4vw;height:2vh;font-size:14px;margin-left:0px">Back</button>
+  </div>
+
+  <div class="wrapper hidden">
+
+      <div class="box-button">
+        
+        <!--<button class="game-button orange create">Create a game</button>
+        <button class="game-button orange join">Join a public game</button>
+        <button class="game-button orange private">Enter a private game</button> -->
+        <button class="corner-button create"><span>Create a game</span></button>
+        <button class="corner-button join"><span>Join game</span></button>
+        <button class="corner-button quick"><span>Quick game</span></button>    
+        {# <button class="corner-button private"><span>Enter a private game</span></button> #}
+      
+      </div>
+    <div class="column trans">
+        <div class="box-param">
+          <div id="chat">
+          </div>
+          <div id="list">
+            <div class="section-title">List of players</div>
+                  
+                  <div class="liste-joueur">
+                  
+                </div>
+          </div>
+        </div>
+        <div class="start">
+          <button class="game-button orange">Start</button>
+        </div>
+     </div>
+  </div>
+  {% include 'quizz/questions.twig' %}
+  {% include 'quizz/score.twig' %}
+</div>
