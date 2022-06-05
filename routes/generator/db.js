@@ -8,6 +8,7 @@ const getRandomIntInclusive = require('../../bin/generator/scripts/getRandomIntI
 const shuffle = require('../../bin/generator/scripts/shuffle');
 const findArtists = require('../../middlewares/generator/findArtists');
 const processParams = require('../../middlewares/generator/processParams');
+const fs = require("fs");
 
 // Pour la generation d'une date sur un artiste
 router.get('/group/:name/dates', async function (req, res, next) {
@@ -372,6 +373,7 @@ router.get('/questions/gen10/test', processParams, findArtists, async function (
   let questionType;
   let random;
 
+
   for (const artist of req.artistsBD) {
     questionType = Math.floor(Math.random() * 3);
 
@@ -379,11 +381,11 @@ router.get('/questions/gen10/test', processParams, findArtists, async function (
       case 0:
         if (!artist.birthDate) continue;
         const fakeDates = generateFakeDate(artist.birthDate);
-        
+
         random = Math.floor(Math.random() * 4);
 
         fakeDates.splice(random, 0, artist.birthDate);
-        questions.push({ question: `Quelle est la date de naissance de ${artist.name} ?`, proposition: fakeDates, 'index-reponse': random });
+        questions.push({ question: `Quelle est la date de naissance de ${artist.name} ?`, proposition: fakeDates, indexreponse: random });
         nbQuestionToGenerate--;
         break;
 
@@ -417,10 +419,23 @@ router.get('/questions/gen10/test', processParams, findArtists, async function (
         nbQuestionToGenerate--;
     }
 
-    if(nbQuestionToGenerate == 0){
-      res.status(200).json(questions);
+    if (nbQuestionToGenerate == 0) {
+      break;
     }
   }
+
+  fs.writeFile("./questionMusique.json", JSON.stringify(questions), (err) => {
+    if (err)
+      console.log(err);
+    else {
+      console.log("File written successfully\n");
+      console.log("The written has the following contents:");
+      console.log(fs.readFileSync("./questionMusique.json", "utf8"));
+    }
+  });
+
+  res.status(200).json(questions);
+
 });
 
 router.get('/fake/chanson', async function (req, res, next) {

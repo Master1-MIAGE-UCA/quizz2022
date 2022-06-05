@@ -3,22 +3,23 @@ const Game = require('../classes/Game');
 const fs = require('fs');
 const faker = require('faker');
 
-function io (http) {
+function io(http) {
   const io = require('socket.io')(http);
   let jsonData = null;
   let game = null;
   let guestUserName = '';
-
-  fs.readFile('./questionMusique.json', (err, data) => {
-    if (err) throw err;
-    jsonData = JSON.parse(data);
-  });
+  /*
+    fs.readFile('./questionMusique.json', (err, data) => {
+      if (err) throw err;
+      jsonData = JSON.parse(data);
+      console.log(JSON.stringify(jsonData))
+    });*/
 
   /**
    * Array of players connected
    */
   const activeUsers = [];
-  const quitUsers=[];
+  const quitUsers = [];
 
   /**
    * Listening to the clients who try to connect to the server
@@ -33,12 +34,12 @@ function io (http) {
       let alreadyExist = false;
       activeUsers.forEach(element => {
         console.log("socket id " + socketClient.id + "    element id " + element[1]);
-        if(socketClient.id == element[1]){
-            console.log("existe déjà");
-            alreadyExist = true;
+        if (socketClient.id == element[1]) {
+          console.log("existe déjà");
+          alreadyExist = true;
         }
       });
-      if(!alreadyExist){
+      if (!alreadyExist) {
         console.log("n'existe pas");
         guestUserName = 'Guest_' + faker.name.firstName();
         activeUsers.push([socketClient, socketClient.id, guestUserName, false]);
@@ -50,19 +51,18 @@ function io (http) {
       }
       else {
         //the player who left the game can come back to play and join the other players (at the same level)
-        quitUsers.forEach(function(element, i) {
-          if(element.getSocket().id== socketClient.id){
-            activeUsers.forEach(function(elem,j)
-            {
-             if(elem[1] == socketClient.id){
-              game.getPlayerList().push(element);
-              game.setPlayerStateTrue(socketClient);
+        quitUsers.forEach(function (element, i) {
+          if (element.getSocket().id == socketClient.id) {
+            activeUsers.forEach(function (elem, j) {
+              if (elem[1] == socketClient.id) {
+                game.getPlayerList().push(element);
+                game.setPlayerStateTrue(socketClient);
+              }
             }
-            }
-            );        
-                    }
-                  });
-       
+            );
+          }
+        });
+
       }
     });
 
@@ -74,6 +74,8 @@ function io (http) {
       console.log('Server> checking...');
       console.log(`Server> Player's number : ${activeUsers.length}`);
 
+
+
       if (game !== null && game !== 'undefined') {
         console.log(Object.values(game));
         if (game.getStatus()) {
@@ -81,18 +83,25 @@ function io (http) {
           io.sockets.emit(Messages.alreadyStarted, null);
         }
       } else {
-        game = new Game(activeUsers, io, jsonData, '1'); 
-        game.start(); 
+        setTimeout(function () {
+          fs.readFile('./questionMusique.json', (err, data) => {
+            if (err) throw err;
+            jsonData = JSON.parse(data);
+            console.log(JSON.stringify(jsonData))
+            game = new Game(activeUsers, io, jsonData, '1');
+            game.start();
+          });
+        }, 1000);
       }
     });
 
     /**
      * Listening to the clients who decide to quit the game
      */
-     socketClient.on(Messages.quitQuizz, (data) => {
+    socketClient.on(Messages.quitQuizz, (data) => {
       console.log('GAME FINISHED');
-      game.getPlayerList().forEach(function(element, i) {
-        if(element.getSocket().id == socketClient.id){
+      game.getPlayerList().forEach(function (element, i) {
+        if (element.getSocket().id == socketClient.id) {
           quitUsers.push(element);
           game.getPlayerList().splice(i, 1);
 
@@ -100,12 +109,12 @@ function io (http) {
       });
 
       // when all players leave the game
-      if(game.getPlayerList().length==0){
-           io.sockets.emit(Messages.gameFinished, null);
+      if (game.getPlayerList().length == 0) {
+        io.sockets.emit(Messages.gameFinished, null);
 
       }
-    
- 
+
+
     });
 
     /**
@@ -155,7 +164,7 @@ function io (http) {
           console.log('********************* NEXT QUESTION *********************');
           game.getPlayerList().forEach(element => {
             console.log(element.getPlayerScore());
-          
+
           });
           const chosenQuestion = game.selectQuestion();
           game.sendQuestion(chosenQuestion);
@@ -170,9 +179,9 @@ function io (http) {
      */
     socketClient.on('disconnect', () => {
       console.log('user disconnected : ' + socketClient.id);
-      activeUsers.forEach(function(element, i) {
-        if(element[1] == socketClient.id){
-            activeUsers.splice(i, 1);
+      activeUsers.forEach(function (element, i) {
+        if (element[1] == socketClient.id) {
+          activeUsers.splice(i, 1);
         }
       });
     });

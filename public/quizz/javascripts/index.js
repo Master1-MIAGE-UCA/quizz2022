@@ -73,9 +73,11 @@ window.onload = () => {
       const chat = document.querySelector('#chat');
       const list = document.querySelector('#list');
       const start = document.querySelector('.start');
+      //const genQuestions = document.querySelector('.genQuestions');
       chat.style.display = 'initial';
       list.style.display = 'initial';
       start.style.display = 'flex';
+      //genQuestions.style.display = 'flex';
     }, false);
 
   /**
@@ -87,7 +89,11 @@ window.onload = () => {
       socket.emit(Messages.beginQuizz, { state: true });
       document.getElementById('back').hidden = true;
     });
-
+/*
+    document.querySelector('.genQuestions').addEventListener('click', function () {
+      //$.ajax()
+    });*/
+    
     
     /**
    * Add event to the "quit" button

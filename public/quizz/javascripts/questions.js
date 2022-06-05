@@ -35,7 +35,6 @@ function timer(data) {
   function renderCounter() {
     if (c.innerHTML > 0) {
       c.innerHTML--;
-      console.log(soundOff)
       if(soundOff){
         countd.pause();
       }

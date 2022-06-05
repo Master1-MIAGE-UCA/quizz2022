@@ -22,7 +22,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('MongoDB Connected');
-  fs.readFile('./bin/artists.json', (err, data) => {
+  fs.readFile('./bin/generator/artists.json', (err, data) => {
     if (err) throw err;
     artists = JSON.parse(data);
     //console.log(artists.length);
