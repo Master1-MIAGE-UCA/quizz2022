@@ -109,11 +109,11 @@ function toggleSound(img) {
   
   soundOff = !soundOff;
 
-  if (img.getAttribute('src') === "../assets/soundON.png") {
+  if (img.getAttribute('src') === "quizz/assets/soundON.png") {
 
-        img.setAttribute('src', "../assets/soundOFF.png");
+        img.setAttribute('src', "quizz/assets/soundOFF.png");
     }
     else {
-        img.setAttribute('src', "../assets/soundON.png");
+        img.setAttribute('src', "quizz/assets/soundON.png");
     }
 }
