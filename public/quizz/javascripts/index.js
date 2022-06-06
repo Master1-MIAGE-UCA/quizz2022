@@ -51,6 +51,7 @@ window.onload = () => {
           document.querySelector('#chat').style.display = 'none';
           document.querySelector('#list').style.display = 'none';
           document.querySelector('.start').style.display = 'none';
+          document.querySelector('#difficultySection').style.display = 'none';
           id = "guest";
           break;
 
@@ -72,10 +73,12 @@ window.onload = () => {
       document.querySelector('.trans').classList.toggle('transform-active');
       const chat = document.querySelector('#chat');
       const list = document.querySelector('#list');
+      const difficulty = document.querySelector('#difficultySection');
       const start = document.querySelector('.start');
       //const genQuestions = document.querySelector('.genQuestions');
       chat.style.display = 'initial';
       list.style.display = 'initial';
+      difficulty.style.display = 'initial';
       start.style.display = 'flex';
       //genQuestions.style.display = 'flex';
     }, false);
@@ -89,10 +92,6 @@ window.onload = () => {
       socket.emit(Messages.beginQuizz, { state: true });
       document.getElementById('back').hidden = true;
     });
-/*
-    document.querySelector('.genQuestions').addEventListener('click', function () {
-      //$.ajax()
-    });*/
     
     
     /**

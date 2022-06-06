@@ -5,8 +5,9 @@ $(document).ready(function () {
     document.getElementById('start').addEventListener('click', function (event) {
         event.preventDefault();
         let nbQuestion = 10;
+        let difficulty = document.querySelector('input[name="difficultyChoice"]:checked').value;
         $.ajax({
-            url: `/db/questions/gen10/test?nbQuestion=${nbQuestion}`,
+            url: `/db/questions/gen10/test?nbQuestion=${nbQuestion}&difficulty=${difficulty}`,
             data: {},
             success: (res) => {
             },

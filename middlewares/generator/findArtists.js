@@ -3,7 +3,19 @@ const Genre = require('../../bin/generator/db/Genre');
 const shuffle = require('../../bin/generator/scripts/shuffle');
 
 async function findArtists (req, res, next) {
-  const filter = { deezerFans: { $gt: req.popularity }, birthDate: { $ne: null } };
+  let filter;
+  switch(req.difficulty){
+    case "all" :
+    case "easy" :
+      filter = { deezerFans: { $gt: req.popularityGt }, birthDate: { $ne: null } };
+      break;
+    case "medium" :
+      filter = { deezerFans: { $gt: req.popularityGt, $lt: req.popularityLt }, birthDate: { $ne: null } };
+      break;
+    case "hard" :
+      filter = { deezerFans: { $lt: req.popularityLt }, birthDate: { $ne: null } };
+  }
+
   if (req.genres) {
     const genres = (await Genre.find({ name: { $in: req.genres } })).map(e => e._id);
 

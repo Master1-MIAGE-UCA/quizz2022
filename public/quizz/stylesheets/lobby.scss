@@ -102,7 +102,7 @@ $dur: 0.5s;
   // flex-grow: 2;
 }
 
-#list {
+#list, #difficultySection {
   display: none;
   //  background-color: #35BDD0;
   justify-content: normal;
@@ -113,19 +113,13 @@ $dur: 0.5s;
   color: #fff;
 }
 
-.start {
+.start, .genQuestions {
   display: none;
   justify-content: center;
   align-items: center;
   padding: 0 5vw;
 }
 
-.genQuestions {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  padding: 0 5vw;
-}
 /* button */
 
 .game-button {
@@ -210,6 +204,12 @@ $dur: 0.5s;
     0 13px 1px 6px rgba(0, 0, 0, 0.3);
 }
 
+.difficulty{
+  text-align: center;
+  background-color: lighten($light-black, 1%);
+  font-size: medium;
+  padding: 10px 0px;
+}
 /* user list */
 
 .liste-joueur,

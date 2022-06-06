@@ -373,7 +373,6 @@ router.get('/questions/gen10/test', processParams, findArtists, async function (
   let questionType;
   let random;
 
-
   for (const artist of req.artistsBD) {
     questionType = Math.floor(Math.random() * 3);
 
@@ -428,9 +427,10 @@ router.get('/questions/gen10/test', processParams, findArtists, async function (
     if (err)
       console.log(err);
     else {
-      console.log("File written successfully\n");
+      console.log("File written successfully");
+      /*
       console.log("The written has the following contents:");
-      console.log(fs.readFileSync("./questionMusique.json", "utf8"));
+      console.log(fs.readFileSync("./questionMusique.json", "utf8"));*/
     }
   });
 
