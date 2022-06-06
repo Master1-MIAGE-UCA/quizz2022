@@ -2,7 +2,6 @@ const getRandomIntInclusive = require('./getRandomIntInclusive');
 
 function generateFakeDate (trueDate) {
   // $('#create-json textarea').remove();
-
   const actualYear = new Date().getFullYear();
 
   const fakeDates = [];
@@ -18,7 +17,7 @@ function generateFakeDate (trueDate) {
       let year;
       do {
         year = getRandomIntInclusive(parseInt(trueDate[0]) - 5, Math.min(parseInt(trueDate[0]) + 5, actualYear));
-      } while (year === actualYear || fakeDates.indexOf(year) !== -1);
+      } while (year === actualYear || fakeDates.indexOf(year) !== -1 || year === parseInt(trueDate));
       const res = '' + year;
 
       fakeDates.push(res);
