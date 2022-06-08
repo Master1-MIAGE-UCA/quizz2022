@@ -43,6 +43,7 @@ window.onload = () => {
       switch (id) {
         case "guest":
           document.getElementById('home').hidden = false;
+          document.querySelector('.group').style.display = 'none';
           break;
         case "quick":
           const boxB = document.querySelector('.box-button');

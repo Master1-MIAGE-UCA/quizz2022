@@ -230,3 +230,6 @@ button {
   .corner-button:hover span::after {
     width: 100%;
     height: 100%; }
+
+.inactive {
+  color: gray; }
